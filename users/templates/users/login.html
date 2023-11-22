@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+  <head>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+  </head>
+
+  <body>
+    <div id="wrap">
+      <a href="{% url 'main:main' %}">
+        <div id="title_wrap">
+          <div id="title">pit-a-pat</div>
+          <div id="subtitle">: 온라인 롤링페이퍼</div>
+        </div>
+      </a>
+      <form method="post">
+        {% csrf_token %}
+        <div id="input_wrap">
+          <div class="user_div">
+            <input type='text' class="user_input" id='user_id' name='user_id' placeholder="아이디를 입력하세요.">
+          </div>
+          <div class="user_div">
+            <input type='text' class="user_input" id='user_pwd' name='user_pwd' placeholder="비밀번호를 입력하세요.">
+          </div>
+          <div id="btn_wrap">
+            <button type="submit" class="btn">로그인</button>
+            <br>
+            <br>
+            <button type="button" class="btn" onclick="location.href='{% url 'users:signup_view' %}'">회원가입</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+
+</html>
