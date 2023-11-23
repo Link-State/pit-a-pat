@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -10,11 +11,10 @@ class User(models.Model) :
     nickname = models.CharField(max_length=30, unique=True)
     email = models.CharField(max_length=30)
     tel = models.CharField(max_length=30)
-    papers = models.IntegerField()
-    messages = models.IntegerField()
-    joined = models.DateTimeField()
-    modified = models.DateTimeField()
+    papers = models.IntegerField(default=0)
+    messages = models.IntegerField(default=0)
+    joined = models.DateTimeField(default=timezone.now)
+    modified = models.DateTimeField(default=timezone.now)
 
     class Meta :
         db_table = "User"
-        constraints = []

@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -9,9 +10,8 @@ class Rolling_paper(models.Model) :
     nickname = models.ForeignKey(User, on_delete=models.CASCADE, to_field="nickname", db_column="nickname")
     subject = models.CharField(max_length=50)
     users = models.IntegerField()
-    created = models.DateTimeField()
-    completed = models.DateTimeField()
+    created = models.DateTimeField(default=timezone.now)
+    completed = models.DateTimeField(null=True)
 
     class Meta :
         db_table = "Paper"
-        constraints = []

@@ -130,4 +130,5 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# 로그인 시 리다이렉트 될 주소
 LOGIN_REDIRECT_URL = '/'
