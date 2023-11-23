@@ -34,37 +34,21 @@
           {% endif %}
         </div>
       </div>
-      <!-- 롤링페이퍼 목록 예시-->
+
+      <!-- 롤링페이퍼 목록 -->
       <div id="second_content">
-        <div class="rolling_paper">
-          <div class="rolling_paper_subject">홍길동에게</div>
-        </div>
-        <div class="rolling_paper">
-          <div class="rolling_paper_subject">2023년에게</div>
-        </div>
-        <div class="rolling_paper">
-          <div class="rolling_paper_subject">올해를 마무리하며며며며며</div>
-        </div>
-        <div class="rolling_paper">
-          <div class="rolling_paper_subject">홍길동에게</div>
-        </div>
-        <div class="rolling_paper">
-          <div class="rolling_paper_subject">홍길동에게</div>
-        </div>
-        <div class="rolling_paper">
-          <div class="rolling_paper_subject">홍길동에게</div>
-        </div>
-        <div class="rolling_paper">
-          <div class="rolling_paper_subject">홍길동에게</div>
-        </div>
-        <div class="rolling_paper">
-          <div class="rolling_paper_subject">홍길동에게</div>
-        </div>
+        {% for i in papers %}
+          <div class="rolling_paper">
+            <a href="{% url 'papers:loadPaper' i.paper_number %}">
+              <div class="rolling_paper_subject">{{ i.subject }}</div>
+            </a>
+          </div>
+        {% endfor %}
       </div>
       <!-- 롤링페이퍼 목록 예시-->
+
     </div>
   </div>
-
   <footer>
     <div id="footer_content_wrap">
       <div id="first_footer_content">연세대학교 미래캠퍼스</div>

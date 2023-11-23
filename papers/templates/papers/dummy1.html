@@ -8,17 +8,31 @@
   </head>
 
   <body>
-    <form action="{% url 'papers:deletePaper' paper_number %}" method="post">
-      {% csrf_token %}
-      <button type="submit">롤링페이퍼 삭제</button>
-    </form>
+    {% if owner == request.user.username %}
+      <form action="{% url 'papers:editPaper' paper_number %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="subject" value="{{ subject }}" placeholder="제목">
+        <button type="submit">제목 변경</button>
+      </form>
 
-    <br>
+      <br>
+
+      <form action="{% url 'papers:deletePaper' paper_number %}" method="post">
+        {% csrf_token %}
+        <button type="submit">롤링페이퍼 삭제</button>
+      </form>
+
+      <br>
+      <hr>
+      <br>
+    {% endif %}
+
+    <p style="color: red;">{{ err_msg }}</p>
 
     <form action="{% url 'message:createMessage' %}" method="post">
       {% csrf_token %}
-      <input type="hidden" name="paper_uid" ,="," value="1">
-      <input type="text" ,="," name="content" value="">
+      <input type="hidden" name="paper_uid" value="{{ paper_number }}">
+      <input type="text" name="content" value="">
       <button type="submit">메세지 추가</button>
     </form>
 
@@ -26,21 +40,32 @@
     <hr style="border: solid 1px black;">
 
     {% for i in messages %}
-      <form action="{% url 'message:editMessage' i.message_number %}" method="post">
-        {% csrf_token %}
-        <input type="text" ,="," name="content" value="{{ i.content }}">
-        <button type="submit">message_number가
-          {{ i.message_number }}인 메세지 수정</button>
-      </form>
+      {% if user.is_active and request.user.username == i.nickname or request.user.username == owner %}
+        <form action="{% url 'message:deleteMessage' i.message_number %}" method="post">
+          {% csrf_token %}
+          <button type="submit">메세지 삭제</button>
+        </form>
+      {% endif %}
 
-      <br>
+      {% if user.is_active and request.user.username == i.nickname %}
+        <br>
+        <form action="{% url 'message:editMessage' i.message_number %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="content" value="{{ i.content }}">
+          <button type="submit">메세지 수정</button>
+        </form>
 
-      <form action="{% url 'message:deleteMessage' i.message_number %}" method="post">
-        {% csrf_token %}
-        <button type="submit">message_number가
-          {{ i.message_number }}인 메세지 삭제</button>
-      </form>
-
+        <br>
+      {% else %}
+        <div style="border: solid 1px black">
+          작성자 :
+          {{ i.nickname }}
+          <hr>
+          내용 :
+          <br>
+          {{ i.content }}
+        </div>
+      {% endif %}
       <br>
       <hr>
     {% endfor %}

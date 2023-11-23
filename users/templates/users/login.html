@@ -26,7 +26,8 @@
           <div class="user_div">
             <input type='password' class="user_input" id='user_pwd' name='password' placeholder="비밀번호를 입력하세요." value="{{ form.password.value|default_if_none:'' }}">
           </div>
-          <!-- 필드 오류, 넌필드 오류 출력 -->
+
+          <!-- 필드 오류, 넌필드 오류 출력 부분 -->
           {% if form.errors %}
             <div class="alert alert-danger">
               {% for field in form %}
@@ -46,6 +47,8 @@
               {% endfor %}
             </div>
           {% endif %}
+          <!-- 필드 오류, 넌필드 오류 출력 부분 -->
+
           <div id="btn_wrap">
             <button type="submit" class="btn">로그인</button>
             <br>

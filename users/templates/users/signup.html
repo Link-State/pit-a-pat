@@ -21,10 +21,10 @@
         {% csrf_token %}
         <div id="input_wrap">
           <div class="user_div">
-            <input type='text' class="user_input" id='user_name' name='user_name' placeholder="이름을 입력하세요." ,="," value="{{ user_name }}">
+            <input type='text' class="user_input" id='user_name' name='user_name' placeholder="이름을 입력하세요." value="{{ user_name }}">
           </div>
           <div class="user_div">
-            <input type='email' class="user_input" id='email' name='email' placeholder="이메일을 입력하세요." ,="," value="{{ email }}">
+            <input type='email' class="user_input" id='email' name='email' placeholder="이메일을 입력하세요." value="{{ email }}">
           </div>
           {% for msg in err_msg %}
             {% if "이메일" in msg %}
@@ -33,7 +33,7 @@
           {% endfor %}
           <!-- 중복검사 예시-->
           <div class="user_div">
-            <input type='tel' class="user_input" id='tel' name='tel' placeholder="전화번호를 입력하세요. (숫자만)" ,="," value="{{ tel }}">
+            <input type='tel' class="user_input" id='tel' name='tel' placeholder="전화번호를 입력하세요. (숫자만)" value="{{ tel }}">
           </div>
           {% for msg in err_msg %}
             {% if "번호" in msg %}
@@ -42,7 +42,7 @@
           {% endfor %}
           <!-- 중복검사 예시-->
           <div class="user_div">
-            <input type='text' class="user_input" id='user_id' name='user_id' placeholder="아이디를 입력하세요." ,="," value="{{ user_id }}">
+            <input type='text' class="user_input" id='user_id' name='user_id' placeholder="아이디를 입력하세요." value="{{ user_id }}">
           </div>
           {% for msg in err_msg %}
             {% if "아이디" in msg %}
@@ -51,7 +51,7 @@
           {% endfor %}
           <!-- 중복검사 예시-->
           <div class="user_div">
-            <input type='text' class="user_input" id='nickname' name='nickname' placeholder="닉네임을 입력하세요." ,="," value="{{ nickname }}">
+            <input type='text' class="user_input" id='nickname' name='nickname' placeholder="닉네임을 입력하세요." value="{{ nickname }}">
           </div>
           {% for msg in err_msg %}
             {% if "닉네임" in msg %}
@@ -60,10 +60,10 @@
           {% endfor %}
           <!-- 중복검사 예시-->
           <div class="user_div">
-            <input type='password' class="user_input" id='user_pwd' name='user_pwd' placeholder="비밀번호를 입력하세요." ,="," value="{{ user_pwd }}">
+            <input type='password' class="user_input" id='user_pwd' name='user_pwd' placeholder="비밀번호를 입력하세요." value="{{ user_pwd }}">
           </div>
           <div class="user_div">
-            <input type='password' class="user_input" id='user_pwd' name='check_pwd' placeholder="비밀번호 확인을 입력하세요." ,="," value="{{ check_pwd }}">
+            <input type='password' class="user_input" id='user_pwd' name='check_pwd' placeholder="비밀번호 확인을 입력하세요." value="{{ check_pwd }}">
           </div>
           <div id="btn_wrap">
             <button type="submit" class="btn">완료</button>

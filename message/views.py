@@ -26,7 +26,7 @@ def createMessage(request) :
         
         # 글자 수 양식이 맞지 않으면 롤링페이퍼 수정 페이지로 리다이렉트
         if len(content) < LengthRange.Content.MIN or len(content) > LengthRange.Content.MAX :
-            request.session['err_msg'] = "글자수를 넘김"
+            request.session['err_msg'] = "메세지는 최소 1자, 최대 500자까지 작성할 수 있습니다."
             return redirect('/papers/'+str(paper_uid))
 
         # 메세지 DB에 데이터 추가
@@ -41,6 +41,7 @@ def createMessage(request) :
         return redirect('/papers/'+str(paper_uid))
 
     return redirect('main:main')
+
 
 def editMessage(request, message_uid) :
 
@@ -65,7 +66,7 @@ def editMessage(request, message_uid) :
         
         # 글자 수 양식이 맞지 않으면 롤링페이퍼 수정 페이지로 리다이렉트
         if len(content) < LengthRange.Content.MIN or len(content) > LengthRange.Content.MAX :
-            request.session['err_msg'] = "글자수를 넘김"
+            request.session['err_msg'] = "글자 수"
             return redirect('/papers/'+str(paper.paper_number))
         
         # 본인이 작성한 메세지가 아니면 롤링페이퍼 수정 페이지로 리다이렉트
@@ -81,6 +82,7 @@ def editMessage(request, message_uid) :
         return redirect('/papers/'+str(paper.paper_number))
 
     return redirect('main:main')
+
 
 def deleteMessage(request, message_uid) :
     
