@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from users.models import User
+from django.contrib.auth.models import User as Auth_User
 from papers.models import Rolling_paper
 from .models import Message
 from .length import LengthRange
@@ -30,11 +30,11 @@ def createMessage(request) :
             return redirect('/papers/'+str(paper_uid))
 
         # 메세지 DB에 데이터 추가
-        user = User.objects.get(id=request.user.username)
-        message = Message.objects.create(paper_number=paper_uid, content=content, nickname=user)
+        paper = paper.first()
+        user = Auth_User.objects.get(username=request.user.username)
+        message = Message.objects.create(paper_number=paper, content=content, nickname=user)
 
         # 롤링페이퍼 DB에 users 컬럼을 1 증가
-        paper = paper.first()
         paper.users += 1
         paper.save()
 
@@ -60,15 +60,15 @@ def editMessage(request, message_uid) :
             return redirect('main:main')
         
         message = message.first()
-        paper = Rolling_paper.objects.get(paper_number=message.paper_number)
+        paper = message.paper_number
         
         # 글자 수 양식이 맞지 않으면 롤링페이퍼 수정 페이지로 리다이렉트
         if len(content) < LengthRange.Content.MIN or len(content) > LengthRange.Content.MAX :
             request.session['err_msg'] = "글자수를 넘김"
             return redirect('/papers/'+str(paper.paper_number))
         
-        # 롤링페이퍼 소유자가 아니고 본인이 작성한 메세지가 아니면 롤링페이퍼 수정 페이지로 리다이렉트
-        if request.user.username != paper.nickname and request.user.username != message.nickname :
+        # 본인이 작성한 메세지가 아니면 롤링페이퍼 수정 페이지로 리다이렉트
+        if request.user.username != message.nickname.username :
             request.session['err_msg'] = "본인이 작성한 메세지만 삭제할 수 있습니다."
             return redirect('/papers/'+str(paper.paper_number))
         
