@@ -21,7 +21,7 @@ def loadPaper(request, paper_uid) :
     # 세션에 저장된 오류 메세지 받아오기
     if 'err_msg' in request.session :
         err_msg = request.session['err_msg']
-        del(request.session['err_msg'])
+        request.session['err_msg'] = ""
 
     context = {"uid" : paper_uid, "err_msg" : err_msg}
     return render(request, 'papers/dummy2.html', context)
