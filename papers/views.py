@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User as Auth_User
 from papers.models import Rolling_paper
+from message.models import Message
 
 # Create your views here.
 def createPaper(request) :
@@ -36,8 +37,23 @@ def loadPaper(request, paper_uid) :
         err_msg = request.session['err_msg']
         request.session['err_msg'] = ""
 
-    # 존재하지 않는 페이지이면 메인화면으로 리다이렉트
+    paper = Rolling_paper.objects.filter(paper_number=paper_uid)
 
-    context = {"uid" : paper_uid, "err_msg" : err_msg}
+    # 존재하지 않는 페이지이면 메인화면으로 리다이렉트
+    if paper.count() != 1 :
+        return redirect('main:main')
+    
+    paper = paper.first()
+
+    # 해당 롤링페이퍼의 메세지를 딕셔너리로 변환
+    message_querySet = Message.objects.filter(paper_number=paper_uid).values("message_number", "nickname", "content", "modified")
+    messages = [ dic for dic in message_querySet ]
+
+    context = {
+        "isOwner" : paper.nickname.username,
+        "wrote" : paper.completed,
+        "messages" : messages,
+        "err_msg" : err_msg,
+    }
 
     return render(request, 'papers/dummy1.html', context)
