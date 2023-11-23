@@ -25,7 +25,10 @@
         특별한 사람에게 마음을 전해보세요.
         <div>
           {% if user.is_active %}
-            <button type="button" id="create_paper_btn" onclick="location.href='{% url 'papers:createPaper' %}'">롤링페이퍼 만들기</button>
+            <form method="post" action="{% url 'papers:createPaper' %}">
+              {% csrf_token %}
+              <button type="submit" id="create_paper_btn">롤링페이퍼 만들기</button>
+            </form>
           {% else %}
             <button type="button" id="create_paper_btn" onclick="location.href='{% url 'users:login_view' %}'">롤링페이퍼 만들기</button>
           {% endif %}

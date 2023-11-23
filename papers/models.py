@@ -8,8 +8,8 @@ from django.utils import timezone
 class Rolling_paper(models.Model) :
     paper_number = models.AutoField(primary_key=True)
     nickname = models.ForeignKey(Auth_User, on_delete=models.CASCADE, to_field="username", db_column="nickname")
-    subject = models.CharField(max_length=50)
-    users = models.IntegerField()
+    subject = models.CharField(max_length=50, default="Untitled")
+    users = models.IntegerField(default=0)
     created = models.DateTimeField(default=timezone.now)
     completed = models.DateTimeField(null=True)
 
