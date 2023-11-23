@@ -17,7 +17,4 @@ class User(models.Model) :
 
     class Meta :
         db_table = "User"
-        constraints = [
-            models.UniqueConstraint(fields=['nickname'],
-                                    name='nickname'),
-        ]
+        constraints = []

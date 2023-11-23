@@ -7,6 +7,18 @@
     <title>Document</title>
   </head>
 
-  <body></body>
+  <body>
+    <form action="{% url 'message:createMessage' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="paper_uid" ,="," value="1">
+      <input type="text" ,="," name="content" value="">
+      <button type="submit">전송</button>
+    </form>
+    {% if user.is_active %}
+      <p>로그인중!</p>
+    {% else %}
+      <p>낫 로그인!</p>
+    {% endif %}
+  </body>
 
 </html>

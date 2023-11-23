@@ -21,11 +21,31 @@
         {% csrf_token %}
         <div id="input_wrap">
           <div class="user_div">
-            <input type='text' class="user_input" id='user_id' name='user_id' placeholder="아이디를 입력하세요.">
+            <input type='text' class="user_input" id='user_id' name='username' placeholder="아이디를 입력하세요." value="{{ form.username.value|default_if_none:'' }}">
           </div>
           <div class="user_div">
-            <input type='text' class="user_input" id='user_pwd' name='user_pwd' placeholder="비밀번호를 입력하세요.">
+            <input type='password' class="user_input" id='user_pwd' name='password' placeholder="비밀번호를 입력하세요." value="{{ form.password.value|default_if_none:'' }}">
           </div>
+          <!-- 필드 오류, 넌필드 오류 출력 -->
+          {% if form.errors %}
+            <div class="alert alert-danger">
+              {% for field in form %}
+                <!-- 필드 오류 -->
+                {% if field.errors %}
+                  <div>
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                  </div>
+                {% endif %}
+              {% endfor %}
+              <!-- 넌필드 오류 -->
+              {% for error in form.non_field_errors %}
+                <div>
+                  <strong>{{ error }}</strong>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
           <div id="btn_wrap">
             <button type="submit" class="btn">로그인</button>
             <br>
