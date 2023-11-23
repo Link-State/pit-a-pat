@@ -50,10 +50,41 @@ def loadPaper(request, paper_uid) :
     messages = [ dic for dic in message_querySet ]
 
     context = {
+        "paper_number" : paper_uid,
         "isOwner" : paper.nickname.username,
         "wrote" : paper.completed,
         "messages" : messages,
         "err_msg" : err_msg,
     }
 
+    # 추후 롤링페이퍼 html 템플릿으로 변경
     return render(request, 'papers/dummy1.html', context)
+
+
+def deletePaper(request, paper_uid) :
+
+    if request.method == "POST" :
+
+        # 로그인 상태가 아니면 로그인 화면으로 리다이렉트
+        if request.user.is_anonymous :
+            return redirect('users:login_view')
+
+        # 로그인 상태인 경우
+        paper = Rolling_paper.objects.filter(paper_number=paper_uid)
+
+        # 롤링페이퍼가 존재하지 않으면 메인화면으로 리다이렉트
+        if paper.count() != 1 :
+            return redirect('main:main')
+        
+        paper = paper.first()
+
+        # 롤링페이퍼 소유자가 본인이 아니면 롤링페이퍼 화면으로 리다이렉트
+        if request.user.username != paper.nickname.username :
+            return redirect('/papers/'+str(paper_uid))
+        
+        # 롤링페이퍼 DB에서 삭제
+        paper.delete()
+
+        return redirect('main:main')
+
+    return redirect('main:main')

@@ -86,9 +86,9 @@ def deleteMessage(request, message_uid) :
     
     if request.method == "POST" :
 
-        # 로그인 상태가 아니면 메인으로 리다이렉트
+        # 로그인 상태가 아니면 로그인 화면으로 리다이렉트
         if request.user.is_anonymous :
-            return redirect('main:main')
+            return redirect('users:login_view')
 
         # 로그인 상태일 경우
         message = Message.objects.filter(message_number=message_uid)
@@ -99,6 +99,11 @@ def deleteMessage(request, message_uid) :
         
         message = message.first()
         paper = message.paper_number
+
+        # 롤링페이퍼 소유자도 아니고 메세지 작성자도 본인이 아니면 롤링페이퍼 화면으로 리다이렉트
+        if request.user.username != paper.nickname.username and request.user.username != message.nickname.username :
+            request.session['err_msg'] = "본인이 작성한 메세지만 삭제할 수 있습니다."
+            return redirect('/papers/'+str(paper.paper_number))
 
         # 메세지가 존재하면 DB에서 삭제
         message.delete()
