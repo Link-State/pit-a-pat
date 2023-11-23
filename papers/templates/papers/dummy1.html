@@ -12,7 +12,22 @@
       {% csrf_token %}
       <input type="hidden" name="paper_uid" ,="," value="1">
       <input type="text" ,="," name="content" value="">
-      <button type="submit">전송</button>
+      <button type="submit">메세지 추가</button>
+    </form>
+
+    <br>
+
+    <form action="{% url 'message:editMessage' 1 %}" method="post">
+      {% csrf_token %}
+      <input type="text" ,="," name="content" value="">
+      <button type="submit">message_number가 1인 메세지 수정</button>
+    </form>
+
+    <br>
+
+    <form action="{% url 'message:deleteMessage' 1 %}" method="post">
+      {% csrf_token %}
+      <button type="submit">message_number가 1인 메세지 삭제</button>
     </form>
     {% if user.is_active %}
       <p>로그인중!</p>

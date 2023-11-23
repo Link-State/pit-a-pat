@@ -10,7 +10,7 @@ def createMessage(request) :
 
     if request.method == "POST" :
 
-        # 로그인 상태가 아닐 경우
+        # 로그인 상태가 아니면 로그인 화면으로 리다이렉트
         if request.user.is_anonymous :
             return redirect('users:login_view')
         
@@ -46,12 +46,13 @@ def editMessage(request, message_uid) :
 
     if request.method == "POST" :
 
-        # 로그인 상태가 아닐 경우
+        # 로그인 상태가 아니면 로그인 화면 리다이렉트
         if request.user.is_anonymous :
             return redirect('users:login_view')
 
         # 로그인 상태일 경우
         content = request.POST.get('content') # 없을 경우 None 반환
+        print("--" + str(content) + "--")
 
         message = Message.objects.filter(message_number=message_uid)
 
@@ -79,4 +80,33 @@ def editMessage(request, message_uid) :
 
         return redirect('/papers/'+str(paper.paper_number))
 
+    return redirect('main:main')
+
+def deleteMessage(request, message_uid) :
+    
+    if request.method == "POST" :
+
+        # 로그인 상태가 아니면 메인으로 리다이렉트
+        if request.user.is_anonymous :
+            return redirect('main:main')
+
+        # 로그인 상태일 경우
+        message = Message.objects.filter(message_number=message_uid)
+
+        # 메세지가 존재하지 않으면 메인으로 리다이렉트
+        if message.count() != 1 :
+            return redirect('main:main')
+        
+        message = message.first()
+        paper = message.paper_number
+
+        # 메세지가 존재하면 DB에서 삭제
+        message.delete()
+
+        # 롤링페이퍼 users 값 1 감소
+        paper.users -= 1
+        paper.save()
+
+        return redirect('/papers/'+str(paper.paper_number))
+        
     return redirect('main:main')

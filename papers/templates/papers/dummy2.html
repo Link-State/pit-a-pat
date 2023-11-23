@@ -12,11 +12,7 @@
       {{ uid }}</p>
 
     <p style="color: red">{{ err_msg }}</p>
-    <form action="{% url 'message:editMessage' 1 %}" method="post">
-      {% csrf_token %}
-      <input type="text" ,="," name="content" value="">
-      <button type="submit">전송</button>
-    </form>
+
     {% if user.is_active %}
       <p>로그인중!</p>
     {% else %}
