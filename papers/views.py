@@ -33,7 +33,7 @@ def loadPaper(request, paper_uid) :
 
     err_msg = ""
 
-    # 세션에 저장된 오류 메세지 받아오기
+    # 세션에서 메세지 가져오고 세션에 저장된 내용 초기화
     if 'err_msg' in request.session :
         err_msg = request.session['err_msg']
         request.session['err_msg'] = ""
