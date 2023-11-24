@@ -2,6 +2,7 @@ from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from .length import LengthRange
 
 # 로그인 뷰는 auth_views.LoginView.as_view()를 사용하여 views.py에서 따로 지정할 필요 없음
 
@@ -17,6 +18,7 @@ def signup_view(request):
             err_msg = request.session['err_msg']
             request.session['err_msg'] = ""
 
+        # 입력 데이터 가져오기
         user_id = request.POST.get('user_id')
         user_pwd = request.POST.get('user_pwd')
         check_pwd = request.POST.get('check_pwd')
@@ -29,7 +31,8 @@ def signup_view(request):
 
         # 모든 데이터가 검사를 통과할 경우, 메인화면으로 리다이렉트
 
-        # 하나라도 실패한 경우, 회원가입 화면 페이지 반환
+        # 하나 이상 실패한 경우, 회원가입 화면 페이지 반환
+
         context = {
             "user_id" : [user_id, ""],
             "user_pwd" : [user_pwd, ""],
