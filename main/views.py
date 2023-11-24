@@ -11,11 +11,11 @@ def main(request):
     if 'err_msg' in request.session :
         err_msg = request.session['err_msg']
         request.session['err_msg'] = ""
-        
+    
     # 전체 롤링페이퍼 중, 마지막으로 만들어진 롤링페이퍼를 보여주는 경우
     if True :
         paper = Rolling_paper.objects.all().order_by("-paper_number").values()
-
+    
     # 본인의 롤링페이퍼를 보여주는 경우
     else :
         paper = Rolling_paper.objects.filter(nickname=request.user.username).order_by("-paper_number").values()
