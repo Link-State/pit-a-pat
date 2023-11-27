@@ -1,72 +1,86 @@
 from django.contrib import auth
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as Auth_User
 from django.shortcuts import render, redirect
 from .length import LengthRange
 
 # 로그인 뷰는 auth_views.LoginView.as_view()를 사용하여 views.py에서 따로 지정할 필요 없음
 
 def signup_view(request):
-
     context = {}
-    
-    # # 회원가입 요청
-    # if request.method == "POST" :
 
-    #     err_msg = ""
+    if request.method == "POST":
 
-    #     # 세션에서 메세지 가져오고 세션에 저장된 내용 초기화
-    #     if 'err_msg' in request.session :
-    #         err_msg = request.session['err_msg']
-    #         request.session['err_msg'] = ""
+        err_msg = ""
 
-    #     # 입력 데이터 가져오기
-    #     user_id = request.POST.get('user_id')
-    #     user_pwd = request.POST.get('user_pwd')
-    #     check_pwd = request.POST.get('check_pwd')
-    #     user_name = request.POST.get('user_name')
-    #     nickname = request.POST.get('nickname')
-    #     email = request.POST.get('email')
-    #     tel = request.POST.get('tel')
+        if 'err_msg' in request.session:
+            err_msg = request.session['err_msg']
+            request.session['err.msg'] = ""
 
-    #     # 각 데이터에 대한 양식 검사
+        user_id = request.POST.get('user_id')
+        user_pwd = request.POST.get('user_pwd')
+        check_pwd = request.POST.get('check_pwd')
+        user_name = request.POST.get('user_name')
+        nickname = request.POST.get('nickname')
+        email = request.POST.get('email')
+        tel = request.POST.get('tel')
 
-    #     # 모든 데이터가 검사를 통과할 경우, 메인화면으로 리다이렉트
-
-    #     # 하나 이상 실패한 경우, 회원가입 화면 페이지 반환
-
-    #     context = {
-    #         "user_id" : [user_id, ""],
-    #         "user_pwd" : [user_pwd, ""],
-    #         "check_pwd" : [check_pwd, ""],
-    #         "user_name" : [user_name, ""],
-    #         "nickname" : [nickname, ""],
-    #         "email" : [email, ""],
-    #         "tel" : [tel, ""],
-    #         "err_msg" : err_msg,
-    #     }
-
-    #     return render(request, 'users/signup.html', context)
-
-    # # 회원가입 페이지 접속
-    # elif request.method == "GET" :
+        context = {
+                "user_id": [user_id, ""],
+                "user_pwd": [user_pwd, ""],
+                "check_pwd": [check_pwd, ""],
+                "user_name": [user_name, ""],
+                "nickname": [nickname, ""],
+                "email:": [email, ""],
+                "tel": [tel, ""],
+            }
         
-    #     err_msg = ""
+        i = 0
+        
+        # 닉네임 중복 검사
+        temp = Auth_User.objects.filter(username=nickname)
+        temp = temp.first()
+    
+        if temp.count() != 0 :
+            context["user_name"][1] = "이미 있는 닉네임 어쩌구"
+            i += 1
 
-    #     # 세션에서 메세지 가져오고 세션에 저장된 내용 초기화
-    #     if 'err_msg' in request.session :
-    #         err_msg = request.session['err_msg']
-    #         request.session['err_msg'] = ""
+        # 양식 검사
+        if len(user_id) > 30:
+            context["user_id"][1] = "id에 오류생김"
+            i += 1
+        
+        if len(user_pwd) > 30:
+            context["user_pwd"][1] = "pwd에 오류생김"
+            i += 1
+        
+        if check_pwd != user_pwd:
+            context["check_pwd"][1] = "pwd와 check_pwd가 동일하지 않음"
+            i += 1
+        
+        if len(user_name) > 30:
+            context["user_name"][1] = "user_name가 너무 긺"
+            i += 1
+        
+        if len(nickname) > 30:
+            context["nickname"][1] = "nickname가 너무 긺"
+            i += 1
+        
+        if len(email) > 30:
+            context["email"][1] = "email이 너무 긺"
+            i += 1
+        
+        if len(tel) > 30:
+            context["tel"][1] = "tel이 너무 긺"
+            i += 1
 
-    #     context = {
-    #         "user_id" : ["", ""],
-    #         "user_pwd" : ["", ""],
-    #         "check_pwd" : ["", ""],
-    #         "user_name" : ["", ""],
-    #         "nickname" : ["", ""],
-    #         "email" : ["", ""],
-    #         "tel" : ["", ""],
-    #         "err_msg" : err_msg,
-    #     }
+        # 오류가 하나라도 있었으면,
+        if i != 0 :
+            return render(request, 'users/signup.html', context)
+    
+        # 오류가 하나도 없었으면, DB에 저장
+        Auth_User.objects.create(password=user_pwd, user_name=nickname)
+        return redirect('users/login.html', context)
+    elif request.method == "GET" :
+        return render(request, 'users/signup.html')
 
-    return render(request, 'users/signup.html', context)
