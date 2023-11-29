@@ -24,7 +24,6 @@ def main(request):
     # 내림차순 정렬, 순서대로 9개 선택
     i = 0
     for dic in paper :
-        if i == 9 : break
         paper_list.append(dic)
         i += 1
     

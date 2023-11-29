@@ -31,11 +31,10 @@ a {
     height: 100%;
     width: 100%;
     background-color: white;
-    border: 1px solid white;
 }
 
 #title_wrap {
-    margin-top: 100px;
+    padding-top: 110px;
     text-align: center;
     color: #6D3B1C;
     cursor: pointer;
@@ -53,21 +52,19 @@ a {
 }
 
 #input_wrap {
-    padding-top: 20%;
-}
-
-#user_pwd {
-    margin-top: 20px;
+    padding-top: 6%;
 }
 
 .user_div {
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    width: 230px;
+    width: 250px;
     border-bottom: 1px solid lightgray;
 }
 
 .user_input {
+    width: 100%;
     color: #6D3B1C;
     font-family: 'JeonjuCraftGoR';
     font-size: 11pt;
@@ -81,14 +78,14 @@ a {
     font-family: 'JeonjuCraftGoR';
 }
 
-#btn_wrap {
+.btn_wrap {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
 }
 
-.btn {
+#btn {
     height: 40px;
     width: 230px;
     font-family: 'JeonjuCraftGoR';
@@ -99,4 +96,14 @@ a {
     border-radius: 10px;
     background-color: #D4B886;
     cursor: pointer;
+}
+
+.check_div {
+    margin-top: 2px;
+    padding-left: 20px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    color: red;
+    font-size: 9pt;
 }

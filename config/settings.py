@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -133,5 +133,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 로그인 시 리다이렉트 될 주소
 LOGIN_REDIRECT_URL = '/'
 
-# 로그아웃 시 리다이렉트 될 주소
 LOGOUT_REDIRECT_URL = '/'

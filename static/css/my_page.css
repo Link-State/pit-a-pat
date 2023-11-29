@@ -1,0 +1,175 @@
+@font-face {
+    font-family: 'JeonjuCraftGoR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/JeonjuCraftGoR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PartialSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'JeonjuCraftGoR';
+    background-color: #F6F6F6;
+    width: 800px;
+    height: 99.5vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#btn_wrap{
+    padding: 10px 10px 0 0;
+    text-align: right;
+}
+
+#return_btn{
+    opacity: 0.3;
+}
+
+#logout_btn {
+    opacity: 0.3;
+}
+
+#return_btn:hover{
+    opacity: unset;
+}
+
+#logout_btn:hover {
+    opacity: unset;
+}
+
+#wrap {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border: 1px solid white;
+}
+
+#title_wrap {
+    margin-top: 70px;
+    text-align: center;
+    color: #6D3B1C;
+    cursor: pointer;
+}
+
+#title {
+    font-family: 'PartialSansKR-Regular';
+    font-size: 19pt;
+}
+
+#subtitle {
+    font-family: 'JeonjuCraftGoR';
+    font-size: 12pt;
+    margin-top: 2px;
+}
+
+#username {
+    font-family: 'PartialSansKR-Regular';
+    color: #383737;
+    margin-top: 50px;
+    border-radius: 15px;
+    font-size: 22pt;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#my_wrap {
+    text-align: center;
+    position: relative;
+    top: 25px;
+}
+
+#my_paper {
+    background-color: #D4B886;
+    color: white;
+    padding: 13px;
+    text-align: center;
+    font-size: 13pt;
+    width: 200px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 10px -10px gray;
+    margin-right: 75px;
+
+}
+
+#my_message {
+    background-color: #D4B886;
+    color: white;
+    border-radius: 15px;
+    font-size: 13pt;
+    font-weight: 600;
+    padding: 13px;
+    text-align: center;
+    box-shadow: 0 10px 10px -10px #BEC5D0;
+    width: 200px;
+    display: inline-block;
+    margin-left: 75px;
+}
+
+#my_info_wrap {
+    text-align: center;
+}
+
+#my_paper_info {
+    background-color: #F8F8FF;
+    display: inline-block;
+    margin-right: 35px;
+    width: 250px;
+    padding: 50px 30px 10px 30px;
+    border-radius: 15px;
+    height: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    box-shadow: 0 10px 10px -10px #BEC5D0;
+}
+
+#my_message_info {
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-radius: 15px;
+    background-color: #F8F8FF;
+    box-shadow: 0 10px 10px -10px #BEC5D0;
+    width: 250px;
+    margin-left: 35px;
+    padding: 50px 30px 10px 30px;
+    height: 200px;
+}
+
+#update_btn {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-family: 'JeonjuCraftGoR';
+    float: right;
+    margin-top: 50px;
+    color: gray;
+    font-weight: 600;
+    margin-right: 45px;
+}
+
+#update_btn:hover{
+    color: #383737;
+}

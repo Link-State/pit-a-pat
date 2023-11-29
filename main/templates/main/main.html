@@ -2,52 +2,70 @@
 {% load static %}
 <html lang="ko">
 
-  <head>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pit-a-pat: 온라인 롤링페이퍼</title>
-  </head>
+<head>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pit-a-pat: 온라인 롤링페이퍼</title>
+</head>
 
-  <body>
-    <header>
-      <div id="title_wrap">
-        <div id="title">pit-a-pat</div>
-        <div id="subtitle">: 온라인 롤링페이퍼</div>
-      </div>
-      <button type="button" id="mypage_btn">
-        <img src="static/img/mypage.png">
-      </button>
-    </header>
-
-    <div id="content_wrap">
-      <div id="first_content">
-        특별한 사람에게 마음을 전해보세요.
-        <div>
-          {% if user.is_active %}
-            <form method="post" action="{% url 'papers:createPaper' %}">
-              {% csrf_token %}
-              <button type="submit" id="create_paper_btn">롤링페이퍼 만들기</button>
-            </form>
-          {% else %}
-            <button type="button" id="create_paper_btn" onclick="location.href='{% url 'users:login_view' %}'">롤링페이퍼 만들기</button>
-          {% endif %}
-        </div>
-      </div>
-
-      <!-- 롤링페이퍼 목록 -->
-      <div id="second_content">
-        {% for i in papers %}
-          <div class="rolling_paper">
-            <a href="{% url 'papers:loadPaper' i.paper_number %}">
-              <div class="rolling_paper_subject">{{ i.subject }}</div>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-      <!-- 롤링페이퍼 목록 예시-->
-
+<body>
+  <!-- 로고, 로그아웃, 홈(로그인)버튼-->
+  <header>
+    <div id="title_wrap">
+      <div id="title">pit-a-pat</div>
+      <div id="subtitle">: 온라인 롤링페이퍼</div>
     </div>
+    {% if user.is_active %}
+    <div id="header_btn_wrap">
+      <button type="button" id="logout_btn" onclick="location.href='{% url 'users:logout_view' %}'">
+        <img src="static/img/logout.png">
+      </button>
+      <button type="button" id="home_btn" onclick="location.href='{% url 'users:my_page' %}'">
+        <img src="static/img/home.png">
+      </button>
+    </div>
+    {% else %}
+    <div id="header_btn_wrap">
+      <button type="button" id="home_btn" onclick="location.href='{% url 'users:my_page' %}'">
+        <img src="static/img/home.png">
+      </button>
+    </div>
+    {% endif %}
+  </header>
+  <!-- 로고, 로그아웃, 홈(로그인)버튼-->
+
+  <!-- 롤링페이퍼 만들기 -->
+  <div id="content_wrap">
+    <div id="first_content">
+      특별한 사람에게 마음을 전해보세요.
+      <div>
+        {% if user.is_active %}
+        <form method="post" action="{% url 'papers:createPaper' %}">
+          {% csrf_token %}
+          <button type="submit" id="create_paper_btn">롤링페이퍼 만들기</button>
+        </form>
+        {% else %}
+        <button type="button" id="create_paper_btn" onclick="location.href='{% url 'users:login_view' %}'">롤링페이퍼
+          만들기</button>
+        {% endif %}
+      </div>
+    </div>
+    <!-- 롤링페이퍼 만들기 -->
+
+    <!-- 롤링페이퍼 목록 -->
+    <div id="second_content">
+      {% for i in papers %}
+      <div class="rolling_paper">
+        <a href="{% url 'papers:loadPaper' i.paper_number %}">
+          <div class="rolling_paper_subject">{{ i.subject }}</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    <!-- 롤링페이퍼 목록-->
+
+  </div>
   </div>
   <footer>
     <div id="footer_content_wrap">

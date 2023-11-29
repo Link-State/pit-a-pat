@@ -60,7 +60,7 @@ def loadPaper(request, paper_uid) :
     }
 
     # 추후 롤링페이퍼 html 템플릿으로 변경
-    return render(request, 'papers/dummy1.html', context)
+    return render(request, 'papers/paper.html', context)
 
 
 def editPaper(request, paper_uid) :

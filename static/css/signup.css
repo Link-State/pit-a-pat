@@ -31,10 +31,26 @@ a {
     height: 100%;
     width: 100%;
     background-color: white;
+    border: 1px solid white;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#header_btn_wrap {
+    padding: 10px 10px 0 0;
+    text-align: right;
+}
+
+#return_btn {
+    opacity: 0.3;
 }
 
 #title_wrap {
-    padding-top: 150px;
+    margin-top: 60px;
     text-align: center;
     color: #6D3B1C;
     cursor: pointer;
