@@ -54,7 +54,9 @@
     <!-- 롤링페이퍼 제목 및 변경버튼-->
 
     <!-- 제목 경고문구-->
-    <span id="error" style="color: red;">{{ err_msg }}</span>
+    <div>
+      <span class="error" style="color: red;">{{ paper_err }}</span>
+    </div>
     <!-- 제목 경고문구-->
 
     <!-- 메시지 목록 -->
@@ -97,9 +99,15 @@
         </div>
         <button id="add_message_btn" type="submit">메세지 추가</button>
       </form>
+      <!-- 메시지 경고문구-->
+      <div id="msg_err">
+        <span class="error" style="color: red;">{{ msg_err }}</span>
+      </div>
+      <!-- 메시지 경고문구-->
     </div>
+    <!-- 메시지 추가-->
+
   </div>
-  <!-- 메시지 추가-->
 </body>
 
 </html>

@@ -31,12 +31,17 @@ def createPaper(request) :
 
 def loadPaper(request, paper_uid) :
 
-    err_msg = ""
+    paper_err = ""
 
     # 세션에서 메세지 가져오고 세션에 저장된 내용 초기화
-    if 'err_msg' in request.session :
-        err_msg = request.session['err_msg']
-        request.session['err_msg'] = ""
+    if 'paper_err' in request.session:
+        paper_err = request.session['paper_err']
+        request.session['paper_err'] = ""
+
+    if 'msg_err' in request.session:
+        msg_err = request.session['msg_err']
+        request.session['msg_err'] = ""
+
 
     paper = Rolling_paper.objects.filter(paper_number=paper_uid)
 
@@ -56,7 +61,8 @@ def loadPaper(request, paper_uid) :
         "owner" : paper.nickname.username,
         "wrote" : paper.completed,
         "messages" : messages,
-        "err_msg" : err_msg,
+        "paper_err" : paper_err,
+        "msg_err": msg_err,
     }
 
     # 추후 롤링페이퍼 html 템플릿으로 변경
@@ -84,12 +90,12 @@ def editPaper(request, paper_uid) :
         
         # 롤링페이퍼 소유주가 아니면 롤링페이퍼 화면으로 리다이렉트
         if request.user.username != paper.nickname.username :
-            request.session['err_msg'] = "권한이 없습니다."
+            request.session['paper_err'] = "권한이 없습니다."
             return redirect('/papers/'+str(paper_uid))
 
         # 롤링페이퍼 제목 양식 검사
         if len(subject) < LengthRange.Subject.MIN or len(subject) > LengthRange.Subject.MAX :
-            request.session['err_msg'] = "제목은 최소 1자, 최대 50자까지 작성할 수 있습니다."
+            request.session['paper_err'] = "제목은 최소 1자, 최대 50자까지 작성할 수 있습니다."
             return redirect('/papers/'+str(paper_uid))
         
         # 롤링페이퍼 DB 제목 수정
@@ -120,7 +126,7 @@ def deletePaper(request, paper_uid) :
 
         # 롤링페이퍼 소유자가 본인이 아니면 롤링페이퍼 화면으로 리다이렉트
         if request.user.username != paper.nickname.username :
-            request.session['err_msg'] = "권한이 없습니다."
+            request.session['paper_err'] = "권한이 없습니다."
             return redirect('/papers/'+str(paper_uid))
         
         # 롤링페이퍼 DB에서 삭제

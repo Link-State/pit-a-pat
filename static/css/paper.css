@@ -89,16 +89,15 @@ button {
     margin-left: 10px;
     color: white;
     padding: 13px 10px;
-    margin-bottom: 10px;
     border-radius: 10px;
     background-color: #D4B886;
     border: 0;
 }
 
-#error {
+.error {
     font-size: 10pt;
     font-weight: 600;
-    margin-left: 30px;
+    margin: 5px 0 5px 30px;
 }
 
 #message_wrap {
@@ -157,17 +156,20 @@ button {
     opacity: unset;
 }
 
+#msg_err{
+    text-align: left;
+}
+
 #footer_wrap {
     position: absolute;
     bottom: 0;
     width: 800px;
     text-align: center;
     background-color: white;
-    padding-top: 20px;
+    padding: 20px 0 10px 0;
 }
 
 #add_message {
-    margin-bottom: 30px;
     border-bottom: 1px solid lightgray;
     display: inline-block;
     padding: 5px;

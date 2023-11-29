@@ -13,4 +13,5 @@ urlpatterns = [
     path('my_page', views.my_page, name='my_page'),  # 마이페이지
     path('update', views.update, name='update'),  # 회원정보수정페이지
     path('change_pwd', views.change_pwd, name='change_pwd'),  # 회원정보수정페이지
+    path('check_id', views.check_id, name="check_id"), # 아이디 중복 체크
 ]

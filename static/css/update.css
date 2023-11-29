@@ -27,14 +27,43 @@ a {
     text-decoration: none;
 }
 
+button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 #wrap {
     height: 100%;
     width: 100%;
     background-color: white;
+    border: 1px solid white;
 }
 
+#header_btn_wrap {
+    padding: 10px 10px 0 0;
+    text-align: right;
+}
+
+#return_btn {
+    opacity: 0.3;
+}
+
+#logout_btn {
+    opacity: 0.3;
+}
+
+#return_btn:hover {
+    opacity: unset;
+}
+
+#logout_btn:hover {
+    opacity: unset;
+}
+
+
 #title_wrap {
-    padding-top: 110px;
+    margin-top: 110px;
     text-align: center;
     color: #6D3B1C;
     cursor: pointer;
@@ -85,7 +114,21 @@ a {
     text-align: center;
 }
 
+#change_pwd {
+    height: 40px;
+    width: 230px;
+    font-family: 'JeonjuCraftGoR';
+    font-size: 13pt;
+    border: 0;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: #6D3B1C;
+    cursor: pointer;
+}
+
 #btn {
+    margin-top: 30px;
     height: 40px;
     width: 230px;
     font-family: 'JeonjuCraftGoR';
@@ -106,4 +149,20 @@ a {
     margin-right: auto;
     color: red;
     font-size: 9pt;
+}
+
+#withdraw_wrap{
+    text-align: right;
+    margin-top: 50px;
+    margin-right: 50px;
+}
+
+#withdraw{
+    font-family: 'JeonjuCraftGoR';
+    font-weight: 600;
+    opacity: 0.3;
+}
+
+#withdraw:hover{
+    opacity: unset;
 }
