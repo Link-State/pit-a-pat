@@ -2,6 +2,7 @@ from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .length import LengthRange
 
 # 로그인 뷰는 auth_views.LoginView.as_view()를 사용하여 views.py에서 따로 지정할 필요 없음
@@ -10,12 +11,6 @@ from .length import LengthRange
 def signup_view(request):
 
     context = {}
-    msg = ""
-
-    # 세션에서 메세지 가져오고 세션에 저장된 내용 초기화
-    if 'msg' in request.session :
-        msg = request.session['msg']
-        request.session['msg'] = ""
 
     # 회원가입 요청
     if request.method == "POST" :
@@ -29,45 +24,54 @@ def signup_view(request):
         email = request.POST.get('email')
 
         context = {
-            "msg" : msg,
+            'user_id' : [user_id, ""],
+            'user_pwd' : [user_pwd, ""],
+            'check_pwd' : [check_pwd, ""],
+            'first_name' : [first_name, ""],
+            'last_name' : [last_name, ""],
+            'email' : [email, ""],
         }
 
         # 아이디 길이 검사
         if len(user_id) < LengthRange.ID.MIN or len(user_id) > LengthRange.ID.MAX :
-            context['user_id'] = [user_id, "아이디 길이가 너무 깁니다."]
-    
+            context['user_id'][1] = "아이디는 최소 1자, 최대 150자까지만 사용할 수 있습니다."
+
+        # 아이디 중복 검사
+        user = User.objects.filter(username=user_id)
+        if user.count() != 0 :
+            context['user_id'][1] = "사용 불가능한 아이디입니다."
+        
         # 비밀번호 길이 검사
         if len(user_pwd) < LengthRange.PassWord.MIN or len(user_pwd) > LengthRange.PassWord.MAX :
-            context['user_pwd'] = [user_pwd, "현재 비밀번호 길이가 너무 깁니다."]
+            context['user_pwd'][1] = "비밀번호는 최소 1자, 최대 128자까지만 사용할 수 있습니다."
 
         # 비밀번호 확인 길이 검사
         if len(check_pwd) < LengthRange.PassWord.MIN or len(check_pwd) > LengthRange.PassWord.MAX :
-            context['check_pwd'] = [check_pwd, "바꾸려는 비밀번호 길이가 너무 깁니다."]
+            context['check_pwd'][1] = "비밀번호는 최소 1자, 최대 128자까지만 사용할 수 있습니다."
 
         # 성 길이 검사
         if len(first_name) < LengthRange.FirstName.MIN or len(first_name) > LengthRange.FirstName.MAX :
-            context['first_name'] = [first_name, "성의 길이가 너무 깁니다."]
+            context['first_name'][1] = "성은 최소 1자, 최대 50자까지만 사용할 수 있습니다."
 
         # 이름 길이 검사
         if len(last_name) < LengthRange.LastName.MIN or len(last_name) > LengthRange.LastName.MAX :
-            context['last_name'] = [last_name, "이름의 길이가 너무 깁니다."]
+            context['last_name'][1] = "이름은 최소 1자, 최대 50자까지만 사용할 수 있습니다."
 
         # 이메일 길이 검사
         if len(email) < LengthRange.Email.MIN or len(email) > LengthRange.Email.MAX :
-            context['email'] = [email, "이메일 길이가 너무 깁니다."]
+            context['email'][1] = "이메일은 최소 1자, 최대 254자까지만 사용할 수 있습니다."
 
         # 비밀번호와 비밀번호 확인 검사
         if user_pwd != check_pwd :
-            context['user_pwd'] = [user_pwd, ""]
-            context['check_pwd'] = [check_pwd, "비밀번호가 일치하지 않습니다."]
+            context['user_pwd'][1] = ""
+            context['check_pwd'][1] = "비밀번호가 일치하지 않습니다."
         
         # 하나 이상 실패한 경우, 회원가입 화면 페이지 반환
-        if len(context) > 1 :
-            return render(request, 'users/signup.html', context)
+        for key in context.keys() :
+            if context[key][1] != "" :
+                return render(request, 'users/signup.html', context)
 
-        # 모든 데이터가 검사를 통과할 경우,
-
-        # DB에 계정정보 추가
+        # 모든 데이터가 검사 통과, DB에 계정정보 추가
         user = User.objects.create_user(
             password=user_pwd,
             username=user_id,
@@ -80,17 +84,7 @@ def signup_view(request):
 
     # 회원가입 페이지 접속
     elif request.method == "GET" :
-
-        context = {
-            "user_id" : ["", ""],
-            "user_pwd" : ["", ""],
-            "check_pwd" : ["", ""],
-            "user_name" : ["", ""],
-            "nickname" : ["", ""],
-            "email" : ["", ""],
-            "tel" : ["", ""],
-            "msg" : msg,
-        }
+        render(request, 'users/signup.html')
 
     return render(request, 'users/signup.html', context)
 
@@ -127,21 +121,19 @@ def change_pwd(request):
 def check_id(request) :
     if request.method == "POST" :
         
+        alert = "exist"
+
+        # 입력 데이터 가져오기
         user_id = request.POST.get("user_id")
-
-        request.session['msg'] = "디폴트"
-
-        # 양식 검사
-        if len(user_id) < LengthRange.ID.MIN or len(user_id) > LengthRange.ID.MAX :
-            request.session['msg'] = "1~150자 이내만 가능"
         
+        # 아이디 검색
         user = User.objects.filter(username=user_id)
 
-        # 이미 있음
-        if user.count() != 0 :
-            request.session['msg'] = "이미 사용중인 아이디 입니다."
-        else :
-            request.session['msg'] = "사용 가능한 아이디 입니다."
-    
-    return redirect('users:signup_view')
+        # 아이디 양식이 맞지 않는 경우
+        if len(user_id) < LengthRange.ID.MIN or len(user_id) > LengthRange.ID.MAX :
+            alert = "wrong_form"
+        # 존재하지 않는 경우,
+        elif user.count() == 0 :
+            alert = "non_exist"
         
+    return HttpResponse(alert)

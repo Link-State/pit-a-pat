@@ -26,6 +26,10 @@
         {% csrf_token %}
         <div id="input_wrap">
           <div class="user_div">
+            <input type='text' class="user_input" id='user_id' name='user_id' placeholder="아이디를 입력하세요." value="{{ user_id.0 }}">
+          </div>
+          <div id="check_id">{{ user_id.1 }}</div>
+          <div class="user_div">
             <input type='text' class="user_input" id='first_name' name='first_name' placeholder="성을 입력하세요." value="{{ first_name.0 }}">
           </div>
           <div>{{ first_name.1 }}</div>
@@ -37,11 +41,6 @@
             <input type='email' class="user_input" id='email' name='email' placeholder="이메일을 입력하세요." value="{{ email.0 }}">
           </div>
           <div>{{ email.1 }}</div>
-          <div class="user_div">
-            <input type='text' class="user_input" id='user_id' name='user_id' placeholder="아이디를 입력하세요." value="{{ user_id.0 }}">
-            <div>{{ msg }}</div>
-          </div>
-          <div>{{ user_id.1 }}</div>
           <div class="user_div">
             <input type='password' class="user_input" id='user_pwd' name='user_pwd' placeholder="비밀번호를 입력하세요." value="{{ user_pwd.0 }}">
           </div>
@@ -113,7 +112,8 @@
 
           if (data == 'exist') {
             $('#check_id').text('사용 불가능한 아이디입니다.');
-
+          } else if (data == 'wrong_form') {
+            $('#check_id').text('아이디는 최소 1자, 최대 150자까지만 사용할 수 있습니다.');
           } else if (data == 'non_exist') {
             $('#check_id').text('사용 가능한 아이디입니다.');
           }
