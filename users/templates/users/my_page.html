@@ -31,8 +31,20 @@
             <div id="my_message">{{user.username }}님의 메시지</div>
         </div>
         <div id="my_info_wrap">
-            <div id="my_paper_info">테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트</div>
-            <div id="my_message_info">테스트 테스트 테스트 테스트 테스트 테스트 테스트</div>
+            <div id="my_paper_wrap">
+                <div id="my_papers">
+                {% for i in my_papers %}
+                <a href="http://localhost:8000/papers/{{i.paper_number}}"><p>{{i.subject}}</p></a>
+                {% endfor%}
+                </div>
+            </div>
+            <div id="my_message_wrap">
+                <div id="my_messages">
+                {% for i in my_messages %}
+                  <a href="http://localhost:8000/papers/{{i.paper_number}}"><p>{{i.content}}</p></a>
+                {% endfor%}
+                </div>
+            </div>
         </div>
         <button type="button" id="update_btn" onclick="location.href='{% url 'users:update' %}'">회원정보수정✏️</button>
     </div>

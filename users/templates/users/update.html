@@ -35,7 +35,7 @@
             <input type='text' class="user_input" id='user_name' name='last_name' placeholder="이름을 입력하세요." value="{{ last_name }}">
           </div>
           <div class="user_div">
-            <input type='text' class="user_input" id='user_name' name='user_name' placeholder="아이디를 입력하세요." value="{{ username }}">
+            <input type='text' class="user_input" id='user_name' name='user_name' placeholder="아이디를 입력하세요." readonly value="{{ username }}">
           </div>
           <div class="user_div">
             <input type='email' class="user_input" id='email' name='email' placeholder="이메일을 입력하세요." value="{{ email }}">
@@ -49,7 +49,7 @@
         </div>
       </form>
       <div id="withdraw_wrap">
-        <button type="button" id='withdraw'>회원탈퇴</button>
+        <button type="button" id='withdraw' onclick="location.href='{% url 'users:withdraw_view' %}'">회원탈퇴</button>
       </div>
     </div>
   </body>

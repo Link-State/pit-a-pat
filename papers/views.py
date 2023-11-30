@@ -5,19 +5,21 @@ from message.models import Message
 from .length import LengthRange
 
 # Create your views here.
-def createPaper(request) :
 
-    if request.method == "POST" :
+
+def createPaper(request):
+
+    if request.method == "POST":
 
         # 로그인 상태가 아니면 로그인 화면으로 리다이렉트
-        if request.user.is_anonymous :
+        if request.user.is_anonymous:
             return redirect('users:login_view')
-        
+
         # 로그인 상태인 경우
         user = Auth_User.objects.filter(username=request.user.username)
 
         # 해당 유저가 존재하지 않으면 메인화면으로 리다이렉트
-        if user.count() != 1 :
+        if user.count() != 1:
             return redirect('main:main')
 
         # 롤링페이퍼 추가
@@ -29,7 +31,7 @@ def createPaper(request) :
     return redirect('main:main')
 
 
-def loadPaper(request, paper_uid) :
+def loadPaper(request, paper_uid):
 
     paper_err = ""
 
@@ -42,26 +44,26 @@ def loadPaper(request, paper_uid) :
         msg_err = request.session['msg_err']
         request.session['msg_err'] = ""
 
-
     paper = Rolling_paper.objects.filter(paper_number=paper_uid)
 
     # 존재하지 않는 페이지이면 메인화면으로 리다이렉트
-    if paper.count() != 1 :
+    if paper.count() != 1:
         return redirect('main:main')
-    
+
     paper = paper.first()
 
     # 해당 롤링페이퍼의 메세지를 딕셔너리로 변환
-    message_querySet = Message.objects.filter(paper_number=paper_uid).values("message_number", "nickname", "content", "modified")
-    messages = [ dic for dic in message_querySet ]
+    message_querySet = Message.objects.filter(paper_number=paper_uid).values(
+        "message_number", "nickname", "content", "modified")
+    messages = [dic for dic in message_querySet]
 
     context = {
-        "paper_number" : paper_uid,
-        "subject" : paper.subject,
-        "owner" : paper.nickname.username,
-        "wrote" : paper.completed,
-        "messages" : messages,
-        "paper_err" : paper_err,
+        "paper_number": paper_uid,
+        "subject": paper.subject,
+        "owner": paper.nickname.username,
+        "wrote": paper.completed,
+        "messages": messages,
+        "paper_err": paper_err,
         "msg_err": msg_err,
     }
 
@@ -69,35 +71,35 @@ def loadPaper(request, paper_uid) :
     return render(request, 'papers/paper.html', context)
 
 
-def editPaper(request, paper_uid) :
-    
-    if request.method == "POST" :
+def editPaper(request, paper_uid):
+
+    if request.method == "POST":
 
         # 로그인 상태가 아니면 로그인 화면 리다이렉트
-        if request.user.is_anonymous :
+        if request.user.is_anonymous:
             return redirect('users:login_view')
-        
+
         # 로그인 상태인 경우
-        subject = request.POST.get('subject') # 찾을 수 없으면 None 반환
+        subject = request.POST.get('subject')  # 찾을 수 없으면 None 반환
 
         paper = Rolling_paper.objects.filter(paper_number=paper_uid)
 
         # 해당 롤링페이퍼가 존재하지 않으면 메인 화면으로 리다이렉트
-        if paper.count() != 1 :
+        if paper.count() != 1:
             return redirect('main:main')
-        
+
         paper = paper.first()
-        
+
         # 롤링페이퍼 소유주가 아니면 롤링페이퍼 화면으로 리다이렉트
-        if request.user.username != paper.nickname.username :
+        if request.user.username != paper.nickname.username:
             request.session['paper_err'] = "권한이 없습니다."
             return redirect('/papers/'+str(paper_uid))
 
         # 롤링페이퍼 제목 양식 검사
-        if len(subject) < LengthRange.Subject.MIN or len(subject) > LengthRange.Subject.MAX :
+        if len(subject) < LengthRange.Subject.MIN or len(subject) > LengthRange.Subject.MAX:
             request.session['paper_err'] = "제목은 최소 1자, 최대 50자까지 작성할 수 있습니다."
             return redirect('/papers/'+str(paper_uid))
-        
+
         # 롤링페이퍼 DB 제목 수정
         paper.subject = subject
         paper.save()
@@ -107,28 +109,28 @@ def editPaper(request, paper_uid) :
     return redirect('main:main')
 
 
-def deletePaper(request, paper_uid) :
+def deletePaper(request, paper_uid):
 
-    if request.method == "POST" :
+    if request.method == "POST":
 
         # 로그인 상태가 아니면 로그인 화면으로 리다이렉트
-        if request.user.is_anonymous :
+        if request.user.is_anonymous:
             return redirect('users:login_view')
 
         # 로그인 상태인 경우
         paper = Rolling_paper.objects.filter(paper_number=paper_uid)
 
         # 롤링페이퍼가 존재하지 않으면 메인화면으로 리다이렉트
-        if paper.count() != 1 :
+        if paper.count() != 1:
             return redirect('main:main')
-        
+
         paper = paper.first()
 
         # 롤링페이퍼 소유자가 본인이 아니면 롤링페이퍼 화면으로 리다이렉트
-        if request.user.username != paper.nickname.username :
+        if request.user.username != paper.nickname.username:
             request.session['paper_err'] = "권한이 없습니다."
             return redirect('/papers/'+str(paper_uid))
-        
+
         # 롤링페이퍼 DB에서 삭제
         paper.delete()
 

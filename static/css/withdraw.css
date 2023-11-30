@@ -40,17 +40,8 @@ button {
     cursor: pointer;
 }
 
-#header_btn_wrap {
-    padding: 10px 10px 0 0;
-    text-align: right;
-}
-
-#return_btn {
-    opacity: 0.3;
-}
-
 #title_wrap {
-    margin-top: 60px;
+    margin-top: 150px;
     text-align: center;
     color: #6D3B1C;
     cursor: pointer;
@@ -67,39 +58,21 @@ button {
     margin-top: 2px;
 }
 
-#input_wrap {
-    padding-top: 6%;
-}
-
-.user_div {
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 250px;
-    border-bottom: 1px solid lightgray;
-}
-
-.user_input {
-    width: 100%;
-    color: #6D3B1C;
-    font-family: 'JeonjuCraftGoR';
-    font-size: 11pt;
-    border: none;
-    outline: none;
-    padding: 10px;
-}
-
-.user_input::placeholder {
-    color: lightgray;
-    font-family: 'JeonjuCraftGoR';
-}
-
-#check_div{
-    color: red;
-    font-size: 9pt;
+#notice{
+    margin: 100px 0;
+    color: #383737;
     text-align: center;
-    margin-top: 5px;
 }
+
+#first{
+    font-weight: 600;
+    font-size: 20pt;
+}
+
+#second{
+    font-size: 15pt;
+}
+
 
 #btn_wrap {
     margin-left: auto;
@@ -110,7 +83,7 @@ button {
 
 .btn {
     height: 40px;
-    width: 230px;
+    width: 100px;
     font-family: 'JeonjuCraftGoR';
     font-size: 13pt;
     border: 0;
@@ -121,10 +94,6 @@ button {
     cursor: pointer;
 }
 
-.check_div {
-    text-align: center;
-    margin-top: 2px;
-    padding-left: 20px;
-    color: red;
-    font-size: 9pt;
+#return{
+    background-color: #6D3B1C;
 }
