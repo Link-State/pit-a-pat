@@ -23,26 +23,21 @@
           <div class="user_div">
             <input type='text' class="user_input" id='user_id' name='username' placeholder="아이디를 입력하세요." value="{{ form.username.value|default_if_none:'' }}">
           </div>
+          <div class="check_div">
+            {% if 'username' in form.errors %}
+              아이디를 입력해주세요.
+            {% endif %}
+          </div>
           <div class="user_div">
             <input type='password' class="user_input" id='user_pwd' name='password' placeholder="비밀번호를 입력하세요." value="{{ form.password.value|default_if_none:'' }}">
           </div>
-
-          <!-- 필드 오류, 넌필드 오류 출력 부분 -->
-          {% if form.errors %}
-            <div>
-                  <div>
-                    {{ form.errors }}
-                  </div>
-              <!-- 넌필드 오류 -->
-              {% for error in form.non_field_errors %}
-                <div>
-                  <strong>{{ error }}</strong>
-                </div>
-              {% endfor %}
-            </div>
-          {% endif %}
-          <!-- 필드 오류, 넌필드 오류 출력 부분 -->
-
+          <div class="check_div">
+            {% if 'password' in form.errors %}
+              비밀번호를 입력해주세요.
+            {% elif '__all__' in form.errors %}
+              아이디 또는 비밀번호가 올바르지 않습니다.
+            {% endif %}
+          </div>
           <div id="btn_wrap">
             <button type="submit" class="btn">로그인</button>
             <br>
