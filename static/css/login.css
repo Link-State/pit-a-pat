@@ -81,9 +81,11 @@ a {
     font-family: 'JeonjuCraftGoR';
 }
 
-#check_div{
-    border: 1px solid black;
+.check_div {
     color: red;
+    font-size: 9pt;
+    text-align: center;
+    margin-top: 5px;
 }
 
 #btn_wrap {
