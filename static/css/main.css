@@ -53,6 +53,10 @@ button {
     background-color: transparent;
 }
 
+#title_wrap{
+    cursor: pointer;
+}
+
 #title {
     font-family: 'PartialSansKR-Regular';
     font-size: 17pt;

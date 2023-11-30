@@ -89,6 +89,10 @@ def signup_view(request):
 def my_page(request):
     if request.user.is_anonymous:
         return redirect('users:login_view')
+    
+    user_info = User.objects.get(username=request.user.username)
+    first_name = user_info.first_name
+    last_name = user_info.last_name
 
     my_paper_querySet = Rolling_paper.objects.filter(
         nickname=request.user.username).values("paper_number", "subject")
@@ -101,6 +105,7 @@ def my_page(request):
     context = {
         "my_papers": my_papers,
         "my_messages": my_messages,
+        "name": first_name + last_name,
     }
 
     return render(request, 'users/my_page.html', context)

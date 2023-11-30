@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원정보수정</title>
+    <link rel="icon" href="{% static 'img/letter.png' %}" type="image/x-icon">
   </head>
 
   <body>
@@ -26,10 +27,10 @@
         </div>
       </a>
       <div id="username" name="username">안녕하세요,
-        {{user.username }}님✋</div>
+        {{name }}님✋</div>
       <div id="my_wrap">
-        <div id="my_paper">{{user.username }}님의 롤링페이퍼</div>
-        <div id="my_message">{{user.username }}님의 메시지</div>
+        <div id="my_paper">{{name }}님의 롤링페이퍼</div>
+        <div id="my_message">{{name }}님의 메시지</div>
       </div>
       <div id="my_info_wrap">
         <div id="my_paper_wrap">

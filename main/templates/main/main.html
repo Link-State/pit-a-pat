@@ -7,12 +7,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pit-a-pat: 온라인 롤링페이퍼</title>
+  <link rel="icon" href="{% static 'img/letter.png' %}" type="image/x-icon">
 </head>
 
 <body>
   <!-- 로고, 로그아웃, 홈(로그인)버튼-->
   <header>
-    <div id="title_wrap">
+    <div id="title_wrap"  onclick="location.href='{% url 'main:main' %}'">
       <div id="title">pit-a-pat</div>
       <div id="subtitle">: 온라인 롤링페이퍼</div>
     </div>
