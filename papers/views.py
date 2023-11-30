@@ -34,6 +34,7 @@ def createPaper(request):
 def loadPaper(request, paper_uid):
 
     paper_err = ""
+    msg_err = ""
 
     # 세션에서 메세지 가져오고 세션에 저장된 내용 초기화
     if 'paper_err' in request.session:
@@ -97,7 +98,7 @@ def editPaper(request, paper_uid):
 
         # 롤링페이퍼 제목 양식 검사
         if len(subject) < LengthRange.Subject.MIN or len(subject) > LengthRange.Subject.MAX:
-            request.session['paper_err'] = "제목은 최소 1자, 최대 50자까지 작성할 수 있습니다."
+            request.session['paper_err'] = f"제목은 최소 {LengthRange.Subject.MIN}자, 최대 {LengthRange.Subject.MAX}자까지 작성할 수 있습니다."
             return redirect('/papers/'+str(paper_uid))
 
         # 롤링페이퍼 DB 제목 수정
