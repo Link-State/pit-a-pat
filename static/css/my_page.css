@@ -25,6 +25,22 @@ body {
 
 a {
     text-decoration: none;
+    color: black;
+}
+
+p{
+    font-weight: 600;
+    padding: 5px;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p:hover {
+    background-color: #383737;
+    color: white;
+    border-radius: 5px;
+
 }
 
 button {
