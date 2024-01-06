@@ -22,8 +22,8 @@
 
  
  ### 메인 화면
- ![0](https://github.com/Link-State/pit-a-pat/assets/60739875/63b8abe9-4a31-4896-9886-75a80b58374e)
-
+ ![0](https://github.com/Link-State/pit-a-pat/assets/60739875/8ec38b0a-1690-46ec-bbc1-7b32c0a84ef8)
+ 
 
  ### 로그인 화면
  ![1](https://github.com/Link-State/pit-a-pat/assets/60739875/faa0d2cd-4722-4fc9-90cf-fefd28057c42)
