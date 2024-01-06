@@ -20,10 +20,26 @@
    + 롤링페이퍼를 생성, 이후 생성된 URL을 통해 롤링페이퍼에 메세지를 남길 수 있음
    + 기획 및 개발기간 부족으로 여러 기능구현에 제약이 있음
  
- ### 메인화면
+ ### 메인 화면
  ![0](https://github.com/Link-State/pit-a-pat/assets/60739875/63b8abe9-4a31-4896-9886-75a80b58374e)
 
+ ### 로그인 화면
+ ![1](https://github.com/Link-State/pit-a-pat/assets/60739875/faa0d2cd-4722-4fc9-90cf-fefd28057c42)
 
+ ### 회원가입 화면
+ ![2](https://github.com/Link-State/pit-a-pat/assets/60739875/6b947a07-f3b2-4d4a-b770-2e8a07b8840c)
+
+ ### 마이페이지 화면
+ ![3](https://github.com/Link-State/pit-a-pat/assets/60739875/87e29b86-6a75-413c-afac-a9b184b303bb)
+
+ ### 내정보수정 화면
+ ![4](https://github.com/Link-State/pit-a-pat/assets/60739875/230fab99-6aa0-4c78-968b-f24edf1a271b)
+
+ ### 나의 롤링페이퍼 화면
+ ![5](https://github.com/Link-State/pit-a-pat/assets/60739875/0160e528-d7da-45ab-b8ae-a2778a894c39)
+
+ ### 타 유저의 롤링페이퍼 화면
+ ![6](https://github.com/Link-State/pit-a-pat/assets/60739875/87a2ef86-4dbb-4217-9336-a2dd4f11de46)
 
 
 
