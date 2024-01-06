@@ -21,8 +21,7 @@
    + 기획 및 개발기간 부족으로 여러 기능구현에 제약이 있음
  
  ### 메인화면
- ![0](https://user-images.githubusercontent.com/60739875/208313504-32539702-e0c3-48d3-87d2-42ca3e4f8902.PNG)
- 
+ ![0](https://github.com/Link-State/pit-a-pat/assets/60739875/63b8abe9-4a31-4896-9886-75a80b58374e)
 
 
 
